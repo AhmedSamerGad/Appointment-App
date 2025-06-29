@@ -19,7 +19,7 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
       status: json['status'] as String? ?? 'pending',
       attendance:
           (json['attendance'] as List<dynamic>?)
-              ?.map((e) => AttendanceModel.fromJson(e as Map<String, dynamic>))
+              ?.map((e) => e as String)
               .toList() ??
           [],
       acceptedBy:

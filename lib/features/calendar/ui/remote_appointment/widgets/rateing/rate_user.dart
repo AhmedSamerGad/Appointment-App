@@ -1,7 +1,7 @@
 import 'package:appointments/core/thems/colors.dart';
 import 'package:appointments/core/thems/styles.dart';
-import 'package:appointments/features/calendar/logic/cubit/calendar_cubit/cubit/calendar_cubit.dart';
-import 'package:appointments/features/calendar/logic/cubit/calendar_cubit/cubit/calendar_state.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/logic/cubit/add_appointment_logic_cubit.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/logic/cubit/add_appointment_logic_state.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rateing/slider_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,9 +81,9 @@ class _RateUserState extends State<RateUser> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  BlocBuilder<CalendarCubit, CalendarState>(
+                  BlocBuilder<AddAppointmentLogicCubit, AddAppointmentLogicState>(
                     builder: (context, state) {
-                      final cubit = context.read<CalendarCubit>();
+                      final cubit = context.read<AddAppointmentLogicCubit>();
                       return Column(
                         children:
                             cubit.currentRatings.map((rating) {

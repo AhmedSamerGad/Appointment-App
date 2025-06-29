@@ -27,13 +27,7 @@ class RatingResponseModel {
 
     Map<String, dynamic> toJson() => _$RatingResponseModelToJson(this);
 
-    ReviewEntity toEntity() => ReviewEntity(
-      ratedBy ?? '',
-      id ?? '',
-      hasRated,
-      ratedAt,
-      users!.map((e) => e.toEntity()).toList(),
-    );
+    ReviewEntity toEntity() => ReviewEntity(ratedUsers: users!.map((e)=>e.toEntity()).toList());
 }
 
 @JsonSerializable()
@@ -55,11 +49,9 @@ class User {
     Map<String, dynamic> toJson() => _$UserToJson(this);
 
     RatedUserEntity toEntity() {
-      return RatedUserEntity(
-        ratedUser   ,
-        comment ?? '' ,
-        cumulativeRatingPoints ?? 0,
-        reviews: reviews?.map((e)=>e.toEntity()).toList()
+      return RatedUserEntity(reviews: reviews!.map((e)=>e.toEntity()).toList() , ratedUser: ratedUser , comment: comment 
+      , cumulativeRatingPoints: cumulativeRatingPoints , 
+        
       );
     }
 }

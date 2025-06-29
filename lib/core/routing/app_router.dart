@@ -13,6 +13,7 @@ import 'package:appointments/features/calendar/logic/cubit/remot_calendar_cubit/
 import 'package:appointments/features/calendar/ui/local_appointment/add_appointment/local_add_appointment.dart';
 import 'package:appointments/features/calendar/ui/calendar.dart';
 import 'package:appointments/features/calendar/ui/local_appointment/update_appointments/update_appointment.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/logic/cubit/add_appointment_logic_cubit.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/widgets/add_remote_appointment.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/attendance/attendance.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rateing/rate_user.dart';
@@ -94,7 +95,7 @@ class AppRouters {
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => RemotCalendarCubit(getIt<RemoteRepo>() , getIt<GroupRepo>())),
-                BlocProvider(create: (context) => CalendarCubit()),
+                BlocProvider(create: (context) => AddAppointmentLogicCubit()),
               ],
               child: const AddRemoteAppointment(),
             );
@@ -107,7 +108,7 @@ class AppRouters {
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => RemotCalendarCubit(getIt<RemoteRepo>() , getIt<GroupRepo>())),
-                BlocProvider(create: (context) => CalendarCubit()),
+                BlocProvider(create: (context) => AddAppointmentLogicCubit()),
               ],
               child: const Attendance(),
             );
@@ -117,7 +118,7 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) {
             return BlocProvider(
-              create: (context) => CalendarCubit(),
+              create: (context) => AddAppointmentLogicCubit(),
               child: const RateUser(),
             );
           },

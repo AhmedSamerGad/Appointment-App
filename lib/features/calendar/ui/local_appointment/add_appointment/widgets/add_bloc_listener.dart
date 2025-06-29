@@ -1,5 +1,6 @@
 import 'package:appointments/core/routing/routes.dart';
 import 'package:appointments/core/thems/styles.dart';
+import 'package:appointments/core/utils/time_converter.dart';
 import 'package:appointments/core/widgets/app_buttons.dart';
 import 'package:appointments/core/widgets/constant.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
@@ -67,9 +68,9 @@ class AddAppointmentBlocListener extends StatelessWidget {
                     final endText = context.read<CalendarCubit>().endingTime.text.trim();
                     final selectedDay = CalendarView.selectedDate!;
 
-                    final startingTime = context.read<LocalCalendarCubit>().getStartingTime(startText);
+                    final startingTime = getStartingTime(startText);
                     final endingTime = endText.isNotEmpty
-                        ? context.read<LocalCalendarCubit>().getStartingTime(endText)
+                        ? getStartingTime(endText)
                         : null;
 
                     // Validate time

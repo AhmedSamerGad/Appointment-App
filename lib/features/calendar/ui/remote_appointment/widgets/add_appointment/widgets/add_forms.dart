@@ -2,20 +2,20 @@ import 'package:appointments/core/thems/colors.dart';
 import 'package:appointments/core/thems/styles.dart';
 import 'package:appointments/core/widgets/app_textform.dart';
 import 'package:appointments/features/calendar/ui/local_appointment/add_appointment/widgets/time_picker.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/logic/cubit/add_appointment_logic_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class AddForms extends StatelessWidget {
-   const AddForms({super.key, this.formKey, required this.titleController, required this.startingTimeController, required this.endingTimeController});
-final formKey ;
-final TextEditingController titleController ;
-final TextEditingController startingTimeController ;
-final TextEditingController endingTimeController ;
+   const AddForms({super.key, });
+  
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<AddAppointmentLogicCubit>();
     return Form(
-      key: formKey,
+      key: cubit.formKey,
       child: Column(
         spacing: 12.h,
         children: [
@@ -27,7 +27,7 @@ final TextEditingController endingTimeController ;
             },
             label: Text('Title', style: TextStyles.font13DarkBlueRegular),
             backgroundColor: Colors.white,
-            controller: titleController,      
+            controller: cubit.titleController,      
             suffixIcon: const Icon(
               Icons.calendar_today_outlined,
               color: ColorsManager.ofBlack,
@@ -47,7 +47,7 @@ final TextEditingController endingTimeController ;
                       return 'Please select a starting time';
                     }
                   },
-                  controller: startingTimeController,
+                  controller:cubit. startingTimeController,
                   title: 
                     'Starting Time',
                  
@@ -57,7 +57,7 @@ final TextEditingController endingTimeController ;
                 flex: 1,
                 child: TimePicker(
                   validator: (value) {},
-                  controller: endingTimeController,
+                  controller:cubit. endingTimeController,
                   title: 
                     'Ending Time'
                 ),

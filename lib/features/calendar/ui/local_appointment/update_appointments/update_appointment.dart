@@ -1,5 +1,6 @@
 import 'package:appointments/core/routing/routes.dart';
 import 'package:appointments/core/thems/styles.dart';
+import 'package:appointments/core/utils/time_converter.dart';
 import 'package:appointments/core/widgets/app_textform.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:appointments/features/calendar/logic/cubit/local_calendar_cubit/cubit/local_calendar_cubit.dart';
@@ -64,11 +65,10 @@ class _UpdateAppointmentState extends State<UpdateAppointment> {
     final updatedAppointment = widget.appointmentId.copyWith(
       title: titleControllar.text,
       startingDate: DateTime.parse(startingDateControllar.text),
-      startingTime: context.read<LocalCalendarCubit>()
-          .getStartingTime(startingTimeControllar.text.trim()),
+      startingTime: 
+          getStartingTime(startingTimeControllar.text.trim()),
       endingTime: endingTimeControllar.text.isNotEmpty
-          ? context.read<LocalCalendarCubit>()
-              .getStartingTime(endingTimeControllar.text.trim())
+          ? getStartingTime(endingTimeControllar.text.trim())
           : null,
     );
 

@@ -25,7 +25,7 @@ class AppointmentModel {
   String? endingTime;
   String? status;
   @JsonKey(defaultValue: [])
-  List<AttendanceModel> attendance;
+  List<String> attendance;
   @JsonKey(defaultValue: [])
   List<UserModel>? acceptedBy;
   @JsonKey(defaultValue: [])
@@ -70,7 +70,7 @@ class AppointmentModel {
             minute: int.parse(endingTime!.split(':')[1]),
           )
         : null,
-    attendance: attendance.map((e) => e.toEntity()).toList(),
+    attendance: attendance,
     acceptedBy: acceptedBy?.map((e) => e.toEntity()).toList() ?? [],
     rating: rating.map((e)=>e.toEntity()).toList(),
     location: location ?? '',

@@ -17,46 +17,48 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$CalendarState {
+  DateTime get selectedDay => throw _privateConstructorUsedError;
+  DateTime get focusedDay => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
     initial,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
     dayChanged,
-    required TResult Function(double value) sliderChanged,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult? Function(double value)? sliderChanged,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult Function(double value)? sliderChanged,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_DayChanged value) dayChanged,
-    required TResult Function(_SliderChanged value) sliderChanged,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_DayChanged value)? dayChanged,
-    TResult? Function(_SliderChanged value)? sliderChanged,
   }) => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_DayChanged value)? dayChanged,
-    TResult Function(_SliderChanged value)? sliderChanged,
     required TResult orElse(),
   }) => throw _privateConstructorUsedError;
+
+  /// Create a copy of CalendarState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  $CalendarStateCopyWith<CalendarState> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -65,6 +67,8 @@ abstract class $CalendarStateCopyWith<$Res> {
     CalendarState value,
     $Res Function(CalendarState) then,
   ) = _$CalendarStateCopyWithImpl<$Res, CalendarState>;
+  @useResult
+  $Res call({DateTime selectedDay, DateTime focusedDay});
 }
 
 /// @nodoc
@@ -79,14 +83,35 @@ class _$CalendarStateCopyWithImpl<$Res, $Val extends CalendarState>
 
   /// Create a copy of CalendarState
   /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({Object? selectedDay = null, Object? focusedDay = null}) {
+    return _then(
+      _value.copyWith(
+            selectedDay:
+                null == selectedDay
+                    ? _value.selectedDay
+                    : selectedDay // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+            focusedDay:
+                null == focusedDay
+                    ? _value.focusedDay
+                    : focusedDay // ignore: cast_nullable_to_non_nullable
+                        as DateTime,
+          )
+          as $Val,
+    );
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
+abstract class _$$InitialImplCopyWith<$Res>
+    implements $CalendarStateCopyWith<$Res> {
   factory _$$InitialImplCopyWith(
     _$InitialImpl value,
     $Res Function(_$InitialImpl) then,
   ) = __$$InitialImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({DateTime selectedDay, DateTime focusedDay});
 }
@@ -166,7 +191,6 @@ class _$InitialImpl implements _Initial {
     initial,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
     dayChanged,
-    required TResult Function(double value) sliderChanged,
   }) {
     return initial(selectedDay, focusedDay);
   }
@@ -176,7 +200,6 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult? Function(double value)? sliderChanged,
   }) {
     return initial?.call(selectedDay, focusedDay);
   }
@@ -186,7 +209,6 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult Function(double value)? sliderChanged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -200,7 +222,6 @@ class _$InitialImpl implements _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_DayChanged value) dayChanged,
-    required TResult Function(_SliderChanged value) sliderChanged,
   }) {
     return initial(this);
   }
@@ -210,7 +231,6 @@ class _$InitialImpl implements _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_DayChanged value)? dayChanged,
-    TResult? Function(_SliderChanged value)? sliderChanged,
   }) {
     return initial?.call(this);
   }
@@ -220,7 +240,6 @@ class _$InitialImpl implements _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_DayChanged value)? dayChanged,
-    TResult Function(_SliderChanged value)? sliderChanged,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -236,22 +255,27 @@ abstract class _Initial implements CalendarState {
     required final DateTime focusedDay,
   }) = _$InitialImpl;
 
+  @override
   DateTime get selectedDay;
+  @override
   DateTime get focusedDay;
 
   /// Create a copy of CalendarState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$DayChangedImplCopyWith<$Res> {
+abstract class _$$DayChangedImplCopyWith<$Res>
+    implements $CalendarStateCopyWith<$Res> {
   factory _$$DayChangedImplCopyWith(
     _$DayChangedImpl value,
     $Res Function(_$DayChangedImpl) then,
   ) = __$$DayChangedImplCopyWithImpl<$Res>;
+  @override
   @useResult
   $Res call({DateTime selectedDay, DateTime focusedDay});
 }
@@ -331,7 +355,6 @@ class _$DayChangedImpl implements _DayChanged {
     initial,
     required TResult Function(DateTime selectedDay, DateTime focusedDay)
     dayChanged,
-    required TResult Function(double value) sliderChanged,
   }) {
     return dayChanged(selectedDay, focusedDay);
   }
@@ -341,7 +364,6 @@ class _$DayChangedImpl implements _DayChanged {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult? Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult? Function(double value)? sliderChanged,
   }) {
     return dayChanged?.call(selectedDay, focusedDay);
   }
@@ -351,7 +373,6 @@ class _$DayChangedImpl implements _DayChanged {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(DateTime selectedDay, DateTime focusedDay)? initial,
     TResult Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult Function(double value)? sliderChanged,
     required TResult orElse(),
   }) {
     if (dayChanged != null) {
@@ -365,7 +386,6 @@ class _$DayChangedImpl implements _DayChanged {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_DayChanged value) dayChanged,
-    required TResult Function(_SliderChanged value) sliderChanged,
   }) {
     return dayChanged(this);
   }
@@ -375,7 +395,6 @@ class _$DayChangedImpl implements _DayChanged {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_DayChanged value)? dayChanged,
-    TResult? Function(_SliderChanged value)? sliderChanged,
   }) {
     return dayChanged?.call(this);
   }
@@ -385,7 +404,6 @@ class _$DayChangedImpl implements _DayChanged {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_DayChanged value)? dayChanged,
-    TResult Function(_SliderChanged value)? sliderChanged,
     required TResult orElse(),
   }) {
     if (dayChanged != null) {
@@ -401,164 +419,15 @@ abstract class _DayChanged implements CalendarState {
     required final DateTime focusedDay,
   }) = _$DayChangedImpl;
 
+  @override
   DateTime get selectedDay;
+  @override
   DateTime get focusedDay;
 
   /// Create a copy of CalendarState
   /// with the given fields replaced by the non-null parameter values.
+  @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DayChangedImplCopyWith<_$DayChangedImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$SliderChangedImplCopyWith<$Res> {
-  factory _$$SliderChangedImplCopyWith(
-    _$SliderChangedImpl value,
-    $Res Function(_$SliderChangedImpl) then,
-  ) = __$$SliderChangedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({double value});
-}
-
-/// @nodoc
-class __$$SliderChangedImplCopyWithImpl<$Res>
-    extends _$CalendarStateCopyWithImpl<$Res, _$SliderChangedImpl>
-    implements _$$SliderChangedImplCopyWith<$Res> {
-  __$$SliderChangedImplCopyWithImpl(
-    _$SliderChangedImpl _value,
-    $Res Function(_$SliderChangedImpl) _then,
-  ) : super(_value, _then);
-
-  /// Create a copy of CalendarState
-  /// with the given fields replaced by the non-null parameter values.
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({Object? value = null}) {
-    return _then(
-      _$SliderChangedImpl(
-        value:
-            null == value
-                ? _value.value
-                : value // ignore: cast_nullable_to_non_nullable
-                    as double,
-      ),
-    );
-  }
-}
-
-/// @nodoc
-
-class _$SliderChangedImpl implements _SliderChanged {
-  const _$SliderChangedImpl({required this.value});
-
-  @override
-  final double value;
-
-  @override
-  String toString() {
-    return 'CalendarState.sliderChanged(value: $value)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$SliderChangedImpl &&
-            (identical(other.value, value) || other.value == value));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, value);
-
-  /// Create a copy of CalendarState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$SliderChangedImplCopyWith<_$SliderChangedImpl> get copyWith =>
-      __$$SliderChangedImplCopyWithImpl<_$SliderChangedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(DateTime selectedDay, DateTime focusedDay)
-    initial,
-    required TResult Function(DateTime selectedDay, DateTime focusedDay)
-    dayChanged,
-    required TResult Function(double value) sliderChanged,
-  }) {
-    return sliderChanged(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(DateTime selectedDay, DateTime focusedDay)? initial,
-    TResult? Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult? Function(double value)? sliderChanged,
-  }) {
-    return sliderChanged?.call(value);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(DateTime selectedDay, DateTime focusedDay)? initial,
-    TResult Function(DateTime selectedDay, DateTime focusedDay)? dayChanged,
-    TResult Function(double value)? sliderChanged,
-    required TResult orElse(),
-  }) {
-    if (sliderChanged != null) {
-      return sliderChanged(value);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_DayChanged value) dayChanged,
-    required TResult Function(_SliderChanged value) sliderChanged,
-  }) {
-    return sliderChanged(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_DayChanged value)? dayChanged,
-    TResult? Function(_SliderChanged value)? sliderChanged,
-  }) {
-    return sliderChanged?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_DayChanged value)? dayChanged,
-    TResult Function(_SliderChanged value)? sliderChanged,
-    required TResult orElse(),
-  }) {
-    if (sliderChanged != null) {
-      return sliderChanged(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _SliderChanged implements CalendarState {
-  const factory _SliderChanged({required final double value}) =
-      _$SliderChangedImpl;
-
-  double get value;
-
-  /// Create a copy of CalendarState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
-  _$$SliderChangedImplCopyWith<_$SliderChangedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

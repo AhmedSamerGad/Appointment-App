@@ -17,24 +17,37 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AddAppointmentBody extends StatelessWidget {
-  AddAppointmentBody({super.key});
+class AddAppointmentBody extends StatefulWidget {
+  const AddAppointmentBody({super.key});
 
+  @override
+  State<AddAppointmentBody> createState() => _AddAppointmentBodyState();
+}
+
+class _AddAppointmentBodyState extends State<AddAppointmentBody> {
   final formKey = GlobalKey<FormState>();
+
   final TextEditingController titleController = TextEditingController();
+
   final TextEditingController startingTimeController = TextEditingController();
+
   final TextEditingController endingTimeController = TextEditingController();
+  List<String> attendance = [];
+@override
+  void initState() {
+    super.initState();
+     context.read<RemotCalendarCubit>().getGroupForAdmin();
+
+  }
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<RemotCalendarCubit>();
+   
     return SingleChildScrollView(
       child: Column(
         spacing: 12.h,
         children: [
-          AddForms(
-            titleController: titleController,
-            startingTimeController: startingTimeController,
-            endingTimeController: endingTimeController,
+          const AddForms(
+           
           ),
           Column(
             spacing: 8.h,
@@ -45,13 +58,20 @@ class AddAppointmentBody extends StatelessWidget {
                   Text('Attendees', style: TextStyles.font18DarkBlueBold),
                   SizedBox(height: 8.h),
 
-                  // BlocBuilder<RemotCalendarCubit, RemotCalendarState>(
-                  //   builder: (context, state) {
-                  //     return
-                  //     // FutureBuilder(future: cubit.getGroupForAdmin(),builder: (context, snapshot) => GroupCardsList(groups: snapshot.data!),);
+                  BlocBuilder<RemotCalendarCubit, RemotCalendarState>(
+                
+                    builder: (context, state) {
+                      return state.maybeWhen(
+                        remoteSuccess: (value) {
+                          return GroupCardsList(groups: value );
+                        },
+                         orElse: (){
+                          return const CircularProgressIndicator();
+                         }
+                       ) ;
                       
-                  // //   },
-                  // ),
+                    },
+                  ),
                 ],
               ),
 
@@ -72,22 +92,21 @@ class AddAppointmentBody extends StatelessWidget {
                 contentPadding: const EdgeInsets.all(16.0),
               ),
               SizedBox(
-                height: 200.h,
-                child: SizedBox(
-                  height: 200.h,
-                  width: double.infinity,
-                  child: AppTextFormField(
-                    validator: (value) {},
-                    label: Text(
-                      'Note',
-                      style: TextStyles.font13DarkBlueRegular,
-                    ),
-                    hintText: 'Add Note',
-                    backgroundColor: ColorsManager.ofWhite,
-                    hintStyle: TextStyles.font16Medium,
-                    onTap: () {},
-                    contentPadding: const EdgeInsets.all(16.0),
+                height: 100.h,
+                child: AppTextFormField(
+                  expands: true,
+                  maxLines: null,
+                  minLines: null,
+                  validator: (value) {},
+                  label: Text(
+                    'Note',
+                    style: TextStyles.font13DarkBlueRegular,
                   ),
+                  hintText: 'Add Note',
+                  backgroundColor: ColorsManager.ofWhite,
+                  hintStyle: TextStyles.font16Medium,
+                  onTap: () {},
+                  contentPadding:  EdgeInsets.symmetric(vertical: 3.h , horizontal: 12.w),
                 ),
               ),
               const Review(),

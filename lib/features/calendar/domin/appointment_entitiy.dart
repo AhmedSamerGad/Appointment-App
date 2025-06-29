@@ -16,7 +16,7 @@ class AppointmentEntitiy {
   TimeOfDay startingTime;
   TimeOfDay? endingTime;
   String status;
-  List<UserEntities> attendance;
+  List<String> attendance;
   List<UserEntities>? acceptedBy;
   List <ReviewEntity>? rating;
   String? location;
@@ -63,11 +63,7 @@ class AppointmentEntitiy {
               ? '${endingTime!.hour}:${endingTime!.minute}' // Convert TimeOfDay to String
               : null,
       status: status,
-      attendance: attendance.map((e) => AttendanceModel(
-            attendanceId: e.id,
-            email: e.email!,
-            name: e.name!,
-          )).toList(),
+      attendance: attendance,
       acceptedBy: acceptedBy?.map((e) => e.toModel()).toList() ?? [],
       groupId: groupId, rating: rating!.map((e)=>e.toModel()).toList(),
       location: location,
@@ -88,7 +84,7 @@ class AppointmentEntitiy {
     TimeOfDay? startingTime,
     TimeOfDay? endingTime,
     String? status,
-    List<UserEntities>? attendance,
+    List<String>? attendance,
     List<UserEntities>? acceptedBy,
     List<ReviewEntity>? rating ,
     String? location,
@@ -104,7 +100,7 @@ class AppointmentEntitiy {
       startingTime: startingTime ?? this.startingTime,
       endingTime: endingTime ?? this.endingTime,
       status: status ?? this.status,
-      attendance: attendance ?? List.from(this.attendance),
+      attendance: attendance ?? this.attendance,
       acceptedBy: acceptedBy ?? (this.acceptedBy != null ? List.from(this.acceptedBy!) : null),
       rating: rating ?? this.rating ,
       location: location ?? this.location,

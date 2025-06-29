@@ -65,6 +65,7 @@ class _EmailAndPasswordState extends State<EmailAndPassword> {
             controller: context.read<LoginCubit>().emailController,
           ),
           AppTextFormField(
+            maxLines: 1,
             controller: context.read<LoginCubit>().passwordController,
             hintText: 'Password',
             isObscureText: isObscureText,

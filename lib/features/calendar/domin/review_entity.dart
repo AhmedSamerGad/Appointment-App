@@ -1,21 +1,21 @@
 import 'package:appointments/features/calendar/data/models/remote/rating/rating_response_model.dart';
 
 class ReviewEntity {
-  final String id;
-  final String ratedBy;
+  final String? id;
+  final String? ratedBy;
   final bool? hasRated;
   final DateTime? ratedAt;
   List<RatedUserEntity> ratedUsers;
 
   ReviewEntity(
-    this.id,
+   { this.id,
     this.ratedBy,
     this.hasRated,
     this.ratedAt,
-    this.ratedUsers,);
+  required  this.ratedUsers,});
 
   RatingResponseModel toModel() {
-    return RatingResponseModel(
+    return RatingResponseModel( 
       id: id,
       ratedBy: ratedBy,
       hasRated: hasRated,
@@ -26,24 +26,24 @@ class ReviewEntity {
 }
 
 class RatedUserEntity {
-  final String ratedUser;
+  final String? ratedUser;
   final String? comment;
-  final int cumulativeRatingPoints;
-  List<ReviewingEvtity>? reviews;
+  final int? cumulativeRatingPoints;
+  List<ReviewingEvtity> reviews;
 
   RatedUserEntity(
-    this.ratedUser,
-    this.comment,
-    this.cumulativeRatingPoints, {
-    this.reviews,
-  });
+{this.ratedUser,
+this.comment,
+this.cumulativeRatingPoints, 
+required this.reviews,}
+  );
 
   User toModel() {
     return User(
-      ratedUser: ratedUser,
+      ratedUser: ratedUser ?? '',
       comment: comment,
       cumulativeRatingPoints: cumulativeRatingPoints,
-      reviews: reviews?.map((e) => e.toModel()).toList(),
+      reviews: reviews.map((e) => e.toModel()).toList(),
     );
   }
 }

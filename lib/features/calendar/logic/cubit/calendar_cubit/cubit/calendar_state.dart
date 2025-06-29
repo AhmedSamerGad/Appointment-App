@@ -13,7 +13,5 @@ class CalendarState with _$CalendarState {
     required DateTime selectedDay,
     required DateTime focusedDay,
   }) = _DayChanged;
-  const factory CalendarState.sliderChanged({
-    required double value,
-  }) = _SliderChanged;
+  
 }

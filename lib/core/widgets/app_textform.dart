@@ -21,7 +21,10 @@ class AppTextFormField extends StatelessWidget {
   final TextInputType ? type ;
   final Function(String?) validator;
   final Function ()? onTap;
+   final bool? expands ;
   final Widget? label;
+  final int ? maxLines;
+  final int? minLines;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -39,11 +42,15 @@ class AppTextFormField extends StatelessWidget {
     this.onTap,
     required this.validator,
     this.label,
+    this.expands, this.maxLines, this.minLines
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      expands: expands ??false,
+      maxLines: maxLines ,
+      minLines: minLines ,
       controller: controller,
       keyboardType: type ?? TextInputType.text,
       decoration: InputDecoration(
