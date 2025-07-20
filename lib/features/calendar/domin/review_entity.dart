@@ -38,8 +38,8 @@ this.cumulativeRatingPoints,
 required this.reviews,}
   );
 
-  User toModel() {
-    return User(
+  UserRatingResponseModel toModel() {
+    return UserRatingResponseModel(
       ratedUser: ratedUser ?? '',
       comment: comment,
       cumulativeRatingPoints: cumulativeRatingPoints,
@@ -51,10 +51,23 @@ required this.reviews,}
 class ReviewingEvtity {
   final String title;
   final int points;
+  final int? currentValue ;
 
-  ReviewingEvtity({required this.title, required this.points});
+  ReviewingEvtity({required this.title, required this.points , this.currentValue = 0});
 
-  Review toModel() {
-    return Review(title: title, points: points);
+  ReviewingEvtity copyWith({
+    String? title,
+    int? points,
+    int? currentValue,
+  }) {
+    return ReviewingEvtity(
+      title: title ?? this.title,
+      points: points ?? this.points,
+      currentValue: currentValue ?? this.currentValue,
+    );
+  }
+
+  ReviewDetailResponseModel toModel() {
+    return ReviewDetailResponseModel(title: title, points: points);
   }
 }

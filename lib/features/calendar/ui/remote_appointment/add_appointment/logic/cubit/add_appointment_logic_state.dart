@@ -6,7 +6,6 @@ part  'add_appointment_logic_state.freezed.dart';
 @freezed
 class AddAppointmentLogicState with _$AddAppointmentLogicState {
   const factory AddAppointmentLogicState({
-    @Default(0) double sliderValue,
     @Default({}) Set<String> selectedGroupIds,
     @Default({}) Set<String> selectedUserIds,
     @Default([]) List<ReviewingEvtity> reviews,

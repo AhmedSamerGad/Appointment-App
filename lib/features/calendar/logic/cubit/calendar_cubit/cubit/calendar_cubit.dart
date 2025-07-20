@@ -6,8 +6,8 @@ class CalendarCubit extends Cubit<CalendarState> {
   CalendarCubit()
     : super(
         CalendarState.initial(
-          selectedDay: DateTime.now(),
           focusedDay: DateTime.now(),
+          selectedDay: DateTime.now()
         ),
         
       );
@@ -18,12 +18,12 @@ class CalendarCubit extends Cubit<CalendarState> {
   final formKey = GlobalKey<FormState>();
 
 
-  void onDaySelected(DateTime newSelectedDay , DateTime newFocuseDay) {
+  void onDaySelected(DateTime newSelectedDay  , DateTime newFocusedDay) {
     print(newSelectedDay);
     emit(
       CalendarState.dayChanged(
         selectedDay: newSelectedDay,
-        focusedDay: newFocuseDay,
+        focusedDay: newFocusedDay,
       ),
     );
   }

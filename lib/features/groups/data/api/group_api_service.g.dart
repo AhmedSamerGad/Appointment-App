@@ -10,7 +10,7 @@ part of 'group_api_service.dart';
 
 class _GroupApiService implements GroupApiService {
   _GroupApiService(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://10.0.2.2:3000/api';
+    baseUrl ??= 'http://10.0.2.2:3000/api/v1';
   }
 
   final Dio _dio;

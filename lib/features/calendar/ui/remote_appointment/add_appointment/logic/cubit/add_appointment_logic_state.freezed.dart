@@ -17,7 +17,6 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$AddAppointmentLogicState {
-  double get sliderValue => throw _privateConstructorUsedError;
   Set<String> get selectedGroupIds => throw _privateConstructorUsedError;
   Set<String> get selectedUserIds => throw _privateConstructorUsedError;
   List<ReviewingEvtity> get reviews => throw _privateConstructorUsedError;
@@ -37,7 +36,6 @@ abstract class $AddAppointmentLogicStateCopyWith<$Res> {
   ) = _$AddAppointmentLogicStateCopyWithImpl<$Res, AddAppointmentLogicState>;
   @useResult
   $Res call({
-    double sliderValue,
     Set<String> selectedGroupIds,
     Set<String> selectedUserIds,
     List<ReviewingEvtity> reviews,
@@ -62,18 +60,12 @@ class _$AddAppointmentLogicStateCopyWithImpl<
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sliderValue = null,
     Object? selectedGroupIds = null,
     Object? selectedUserIds = null,
     Object? reviews = null,
   }) {
     return _then(
       _value.copyWith(
-            sliderValue:
-                null == sliderValue
-                    ? _value.sliderValue
-                    : sliderValue // ignore: cast_nullable_to_non_nullable
-                        as double,
             selectedGroupIds:
                 null == selectedGroupIds
                     ? _value.selectedGroupIds
@@ -105,7 +97,6 @@ abstract class _$$AddAppointmentLogicStateImplCopyWith<$Res>
   @override
   @useResult
   $Res call({
-    double sliderValue,
     Set<String> selectedGroupIds,
     Set<String> selectedUserIds,
     List<ReviewingEvtity> reviews,
@@ -130,18 +121,12 @@ class __$$AddAppointmentLogicStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? sliderValue = null,
     Object? selectedGroupIds = null,
     Object? selectedUserIds = null,
     Object? reviews = null,
   }) {
     return _then(
       _$AddAppointmentLogicStateImpl(
-        sliderValue:
-            null == sliderValue
-                ? _value.sliderValue
-                : sliderValue // ignore: cast_nullable_to_non_nullable
-                    as double,
         selectedGroupIds:
             null == selectedGroupIds
                 ? _value._selectedGroupIds
@@ -166,7 +151,6 @@ class __$$AddAppointmentLogicStateImplCopyWithImpl<$Res>
 
 class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
   const _$AddAppointmentLogicStateImpl({
-    this.sliderValue = 0,
     final Set<String> selectedGroupIds = const {},
     final Set<String> selectedUserIds = const {},
     final List<ReviewingEvtity> reviews = const [],
@@ -174,9 +158,6 @@ class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
        _selectedUserIds = selectedUserIds,
        _reviews = reviews;
 
-  @override
-  @JsonKey()
-  final double sliderValue;
   final Set<String> _selectedGroupIds;
   @override
   @JsonKey()
@@ -206,7 +187,7 @@ class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
 
   @override
   String toString() {
-    return 'AddAppointmentLogicState(sliderValue: $sliderValue, selectedGroupIds: $selectedGroupIds, selectedUserIds: $selectedUserIds, reviews: $reviews)';
+    return 'AddAppointmentLogicState(selectedGroupIds: $selectedGroupIds, selectedUserIds: $selectedUserIds, reviews: $reviews)';
   }
 
   @override
@@ -214,8 +195,6 @@ class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$AddAppointmentLogicStateImpl &&
-            (identical(other.sliderValue, sliderValue) ||
-                other.sliderValue == sliderValue) &&
             const DeepCollectionEquality().equals(
               other._selectedGroupIds,
               _selectedGroupIds,
@@ -230,7 +209,6 @@ class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
   @override
   int get hashCode => Object.hash(
     runtimeType,
-    sliderValue,
     const DeepCollectionEquality().hash(_selectedGroupIds),
     const DeepCollectionEquality().hash(_selectedUserIds),
     const DeepCollectionEquality().hash(_reviews),
@@ -249,14 +227,11 @@ class _$AddAppointmentLogicStateImpl implements _AddAppointmentLogicState {
 
 abstract class _AddAppointmentLogicState implements AddAppointmentLogicState {
   const factory _AddAppointmentLogicState({
-    final double sliderValue,
     final Set<String> selectedGroupIds,
     final Set<String> selectedUserIds,
     final List<ReviewingEvtity> reviews,
   }) = _$AddAppointmentLogicStateImpl;
 
-  @override
-  double get sliderValue;
   @override
   Set<String> get selectedGroupIds;
   @override

@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
 
       minTextAdapt: true,
       child: BlocProvider(
-        create: (context) => CalendarCubit(),
+        create:(context) =>CalendarCubit(),
         child: MaterialApp(
           title: 'Appointments App',
           debugShowCheckedModeBanner: false,

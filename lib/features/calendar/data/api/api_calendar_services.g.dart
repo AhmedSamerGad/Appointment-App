@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: unused_element_parameter
+
 part of 'api_calendar_services.dart';
 
 // **************************************************************************
@@ -10,7 +12,7 @@ part of 'api_calendar_services.dart';
 
 class _ApiCalendarServices implements ApiCalendarServices {
   _ApiCalendarServices(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://10.0.2.2:3000/api';
+    baseUrl ??= 'http://10.0.2.2:3000/api/v1';
   }
 
   final Dio _dio;
@@ -20,15 +22,15 @@ class _ApiCalendarServices implements ApiCalendarServices {
   final ParseErrorLogger? errorLogger;
 
   @override
-  Future<AppointmentResponce> createAppointment(
-    AppointmentModel appointmentModel,
+  Future<AppointmentResponseModel> createAppointment(
+    AppointmentRequestBody appointmentRequest,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(appointmentModel.toJson());
-    final _options = _setStreamType<AppointmentResponce>(
+    _data.addAll(appointmentRequest.toJson());
+    final _options = _setStreamType<AppointmentResponseModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -39,9 +41,9 @@ class _ApiCalendarServices implements ApiCalendarServices {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AppointmentResponce _value;
+    late AppointmentResponseModel _value;
     try {
-      _value = AppointmentResponce.fromJson(_result.data!);
+      _value = AppointmentResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -50,25 +52,25 @@ class _ApiCalendarServices implements ApiCalendarServices {
   }
 
   @override
-  Future<AppointmentResponce> getAppointmentsForUser(String id) async {
+  Future<Map<String, dynamic>> getAppointmentsForUser(String userId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<AppointmentResponce>(
+    final _options = _setStreamType<Map<String, dynamic>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/appointment/${id}',
+            '/appointment/${userId}',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AppointmentResponce _value;
+    late Map<String, dynamic> _value;
     try {
-      _value = AppointmentResponce.fromJson(_result.data!);
+      _value = _result.data!;
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -77,29 +79,29 @@ class _ApiCalendarServices implements ApiCalendarServices {
   }
 
   @override
-  Future<AppointmentResponce> updateAppointment(
-    String id,
-    AppointmentModel appointmentModel,
+  Future<AppointmentResponseModel> updateAppointment(
+    String appointmentId,
+    AppointmentRequestBody appointmentRequest,
   ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    _data.addAll(appointmentModel.toJson());
-    final _options = _setStreamType<AppointmentResponce>(
+    _data.addAll(appointmentRequest.toJson());
+    final _options = _setStreamType<AppointmentResponseModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/appointment/${id}',
+            '/appointment/${appointmentId}',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late AppointmentResponce _value;
+    late AppointmentResponseModel _value;
     try {
-      _value = AppointmentResponce.fromJson(_result.data!);
+      _value = AppointmentResponseModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;
@@ -108,7 +110,7 @@ class _ApiCalendarServices implements ApiCalendarServices {
   }
 
   @override
-  Future<void> deleteAppointment(String id) async {
+  Future<void> deleteAppointment(String appointmentId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -117,7 +119,7 @@ class _ApiCalendarServices implements ApiCalendarServices {
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/appointment/${id}',
+            '/appointment/${appointmentId}',
             queryParameters: queryParameters,
             data: _data,
           )

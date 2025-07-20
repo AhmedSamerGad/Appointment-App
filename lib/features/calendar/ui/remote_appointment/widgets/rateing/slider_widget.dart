@@ -4,10 +4,11 @@ import 'package:flutter/material.dart';
 class RatingUser extends StatefulWidget {
   final String label;
    final double value ;
+   final double maxValue;
    final ValueChanged<double>? onChanged;
- const  RatingUser({super.key, required this.label, required this.value,  this.onChanged});
- RatingUser copyWith ({String?  label , double ? value}){
-  return RatingUser(label: label ?? this.label, value: value??this.value);
+ const  RatingUser({super.key, required this.label, required this.value,  this.onChanged, required this.maxValue});
+ RatingUser copyWith ({String?  label , double ? value , double? maxValue}){
+  return RatingUser(label: label ?? this.label, value: value??this.value, maxValue: maxValue ??this.maxValue);
  }
   @override
   State<RatingUser> createState() => _RatingUserState();
@@ -45,8 +46,8 @@ class _RatingUserState extends State<RatingUser> {
             child: Slider(
               value: widget.value.toDouble(),
               min: 0,
-              max: 5,
-              divisions: 5,
+              max: widget.maxValue,
+              divisions: 10,
               onChanged: widget.onChanged,
             ),
           ),

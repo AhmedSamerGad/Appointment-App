@@ -28,9 +28,12 @@ class _TimePickerState extends State<TimePicker> {
                  child: AppTextFormField(controller: widget.controller,
                  label: Text(widget.title,style: TextStyles.font16GrayRegular,) ,
                  onTap: () async{
-                   final pickedTime = await showTimePicker(context: context, initialTime: TimeOfDay.now(),
-                   
-                   );
+                  final now = DateTime.now().toUtc().add(const Duration(hours: 2)); // Cairo is UTC+2
+                  final initialTime = TimeOfDay(hour: now.hour, minute: now.minute);
+                  final pickedTime = await showTimePicker(
+                    context: context,
+                    initialTime: initialTime,
+                  );
                   if(pickedTime != null){
                      setState(() {
                    widget.controller.text = pickedTime.format(context).toString();

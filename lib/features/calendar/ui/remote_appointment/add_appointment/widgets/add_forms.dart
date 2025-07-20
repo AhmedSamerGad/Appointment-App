@@ -2,7 +2,7 @@ import 'package:appointments/core/thems/colors.dart';
 import 'package:appointments/core/thems/styles.dart';
 import 'package:appointments/core/widgets/app_textform.dart';
 import 'package:appointments/features/calendar/ui/local_appointment/add_appointment/widgets/time_picker.dart';
-import 'package:appointments/features/calendar/ui/remote_appointment/widgets/add_appointment/logic/cubit/add_appointment_logic_cubit.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/add_appointment/logic/cubit/add_appointment_logic_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

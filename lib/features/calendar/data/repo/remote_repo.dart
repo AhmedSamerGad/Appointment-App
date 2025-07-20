@@ -2,27 +2,29 @@
 
 import 'package:appointments/core/network/api_result.dart';
 import 'package:appointments/features/calendar/data/api/api_calendar_services.dart';
+import 'package:appointments/features/calendar/data/models/remote/appointments/response/appointment_response.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:flutter/widgets.dart';
 
 class RemoteRepo {
   final ApiCalendarServices _apiCalendarServices;
-   
+
   RemoteRepo(this._apiCalendarServices);
 
   Future<ApiResult<List<AppointmentEntitiy>>> getAppointmentById(
     String id,
   ) async {
     try {
-      final response = await _apiCalendarServices.getAppointmentsForUser(id);
-
-      if (response.appointmentData == null ||
-          response.appointmentData.isEmpty) {
+      final readed = await _apiCalendarServices.getAppointmentsForUser(id);
+     final  data =  readed ['data'] as List<dynamic>;
+     final List<AppointmentResponseModel> appointments = data
+          .map((e) => AppointmentResponseModel.fromJson(e as Map<String, dynamic>))
+          .toList();
+      if (appointments.isEmpty) {
         return const ApiResult.failure('No appointments found');
       }
 
-      final entities =
-          response.appointmentData.map((model) => model.toEntitiy()).toList();
+       final List<AppointmentEntitiy> entities = appointments.map((e) => e.toEntity()).toList();
 
       return ApiResult.success(entities);
     } catch (e, stackTrace) {
@@ -32,15 +34,11 @@ class RemoteRepo {
     }
   }
 
-
-
-
   Future<ApiResult<void>> createAppointment(AppointmentEntitiy apt) async {
     try {
       final model = apt.toModel();
       final create = await _apiCalendarServices.createAppointment(model);
-      final result =
-          create.appointmentData.map((model) => model.toEntitiy()).toList();
+      final result = create.toEntity();
       if (result != null) {
         return ApiResult.success(result);
       } else {
@@ -57,11 +55,10 @@ class RemoteRepo {
     try {
       final toModel = apt.toModel();
       final result = await _apiCalendarServices.updateAppointment(
-        toModel.mongoId!,
+        apt.mongoId!,
         toModel,
       );
-      final toEntity =
-          result.appointmentData.map((model) => model.toEntitiy()).toList();
+      final toEntity = result.toEntity();
 
       return ApiResult.success(toEntity);
     } catch (error) {

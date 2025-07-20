@@ -78,7 +78,7 @@ class LocalCalendarCubit extends Cubit<LocalCalendarState> {
     emit(const LocalCalendarState.loading());
 
     print('[CUBIT] Updating appointment with ID: $id');
-    print('[CUBIT] New appointment data: ${newAppointment.toModel()}');
+    // print('[CUBIT] New appointment data: ${newAppointment.toModel()}');
 
     final updateResult = await _calendarRepo.updateAppointment(newAppointment);
 

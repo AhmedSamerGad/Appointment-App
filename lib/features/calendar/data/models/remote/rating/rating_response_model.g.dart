@@ -16,8 +16,12 @@ RatingResponseModel _$RatingResponseModelFromJson(Map<String, dynamic> json) =>
               : DateTime.parse(json['ratedAt'] as String),
       users:
           (json['users'] as List<dynamic>?)
-              ?.map((e) => User.fromJson(e as Map<String, dynamic>))
-              .toList(),
+              ?.map(
+                (e) =>
+                    UserRatingResponseModel.fromJson(e as Map<String, dynamic>),
+              )
+              .toList() ??
+          [],
       id: json['_id'] as String?,
     );
 
@@ -31,29 +35,38 @@ Map<String, dynamic> _$RatingResponseModelToJson(
   '_id': instance.id,
 };
 
-User _$UserFromJson(Map<String, dynamic> json) => User(
-  ratedUser: json['ratedUser'] as String,
+UserRatingResponseModel _$UserRatingResponseModelFromJson(
+  Map<String, dynamic> json,
+) => UserRatingResponseModel(
+  ratedUser: json['ratedUser'] as String?,
   comment: json['comment'] as String?,
   cumulativeRatingPoints: (json['cumulativeRatingPoints'] as num?)?.toInt(),
   reviews:
       (json['reviews'] as List<dynamic>?)
-          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
-          .toList(),
+          ?.map(
+            (e) =>
+                ReviewDetailResponseModel.fromJson(e as Map<String, dynamic>),
+          )
+          .toList() ??
+      [],
 );
 
-Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+Map<String, dynamic> _$UserRatingResponseModelToJson(
+  UserRatingResponseModel instance,
+) => <String, dynamic>{
   'ratedUser': instance.ratedUser,
   'comment': instance.comment,
   'cumulativeRatingPoints': instance.cumulativeRatingPoints,
   'reviews': instance.reviews,
 };
 
-Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
+ReviewDetailResponseModel _$ReviewDetailResponseModelFromJson(
+  Map<String, dynamic> json,
+) => ReviewDetailResponseModel(
   title: json['title'] as String?,
   points: (json['points'] as num?)?.toInt(),
 );
 
-Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
-  'title': instance.title,
-  'points': instance.points,
-};
+Map<String, dynamic> _$ReviewDetailResponseModelToJson(
+  ReviewDetailResponseModel instance,
+) => <String, dynamic>{'title': instance.title, 'points': instance.points};

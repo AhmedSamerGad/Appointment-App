@@ -1,5 +1,4 @@
 import 'package:appointments/core/utils/shared_prefrances.dart';
-import 'package:appointments/features/authentication/login/logic/login_cubit.dart';
 import 'package:appointments/features/calendar/data/repo/remote_repo.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:appointments/features/calendar/logic/cubit/remot_calendar_cubit/cubit/remot_calendar_state.dart';
@@ -19,7 +18,7 @@ class RemotCalendarCubit extends Cubit<RemotCalendarState> {
 Future<void> getAppointmentsForCurrentUser() async {
   emit(const RemotCalendarState.remoteLoading());
   try {
-    final response = await _remoteRepo.getAppointmentById(LoginCubit.user!.id);
+    final response = await _remoteRepo.getAppointmentById(await SharedPrefrancesHelpers.getSecuredString('userId'));
     
     response.when(
       success: (retrievedAppointments) {
@@ -116,6 +115,8 @@ Future<List<GroupModel>> getGroupForAdmin() async {
       final createdOne = await _remoteRepo.createAppointment(apt);
       createdOne.when(
         success: (_) {
+
+          print(apt);
           // add to map sefaly (caching data)
           if(appointments.containsKey(apt.startingDate)){
             appointments[apt.startingDate]!.add(apt);
@@ -136,5 +137,30 @@ Future<List<GroupModel>> getGroupForAdmin() async {
     }
   }
 
- 
+ void updateAppointment(AppointmentEntitiy apt) async {
+    emit(const RemotCalendarState.remoteLoading());
+    try {
+      final updatedOne = await _remoteRepo.updateAppointment(apt);
+      updatedOne.when(
+        success: (_) {
+          // Update the appointment in the map
+          if (appointments.containsKey(apt.startingDate)) {
+            final index = appointments[apt.startingDate]!.indexWhere((a) => a.appointmentId == apt.appointmentId);
+            if (index != -1) {
+              appointments[apt.startingDate]![index] = apt;
+            }
+          }
+          emit(const RemotCalendarState.remoteSuccess(null));
+        },
+        failure: (error) {
+          debugPrint(
+            'error from remote calendar cubit update date ${error.toString()}',
+          );
+          emit(RemotCalendarState.remoteError(error));
+        },
+      );
+    } catch (e) {
+      emit(RemotCalendarState.remoteError(e.toString()));
+    }
+  }
 }

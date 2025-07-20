@@ -10,9 +10,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarView extends StatefulWidget {
-  const CalendarView({super.key});
+   CalendarView({super.key});
   static DateTime? selectedDate;
-  static DateTime? focusedDay;
   @override
   State<CalendarView> createState() => _CalendarViewState();
 }
@@ -27,18 +26,15 @@ class _CalendarViewState extends State<CalendarView> {
   Widget build(BuildContext context) {
     return BlocBuilder<CalendarCubit, CalendarState>(
       builder: (context, state) {
-        state.whenOrNull(dayChanged: (selectedDay, focusedDay) {
-         CalendarView.selectedDate = selectedDay ;
-         CalendarView.focusedDay = focusedDay;
-        },);
+
         return TableCalendar(
           firstDay: DateTime(2020, 1, 1),
           lastDay: DateTime(2030, 12, 31),
-          focusedDay: DateTime.now(),
-          selectedDayPredicate: (day) => isSameDay(day, CalendarView.selectedDate),
+          focusedDay: state.focusedDay,
+          selectedDayPredicate: (day) => isSameDay(day, state.selectedDay),
           onDaySelected: (selectedDay, focusedDay) {
             CalendarView.selectedDate = selectedDay;
-            context.read<CalendarCubit>().onDaySelected(selectedDay,focusedDay);
+            context.read<CalendarCubit>().onDaySelected(selectedDay, focusedDay);
             context.read<LocalCalendarCubit>().loadAppointmentsForDay(selectedDay);
             context.read<RemotCalendarCubit>().loadAppointmentsForDay(selectedDay);
           },

@@ -1,7 +1,7 @@
 // ignore_for_file: unnecessary_this
 
-import 'package:appointments/features/authentication/domin/user_entities.dart';
-import 'package:appointments/features/calendar/data/models/appointment_model.dart';
+import 'package:appointments/features/calendar/data/models/remote/appointments/request/appointment_request_body.dart';
+import 'package:appointments/features/calendar/domin/accepted_by_entity.dart';
 import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:flutter/material.dart';
 
@@ -10,14 +10,14 @@ class AppointmentEntitiy {
   final String? mongoId;
   final String title;
   final String? userId;
-  String? groupId;
+  List<String>? groupId;
   final DateTime startingDate;
   DateTime? endingDate;
   TimeOfDay startingTime;
   TimeOfDay? endingTime;
   String status;
-  List<String> attendance;
-  List<UserEntities>? acceptedBy;
+  List<String>? attendance;
+  List<AcceptedByEntity>? acceptedBy;
   List <ReviewEntity>? rating;
   String? location;
   String? description;
@@ -29,7 +29,7 @@ class AppointmentEntitiy {
     this.userId,
     this.groupId,
     required this.startingDate,
-    this.endingDate,
+    this.endingDate ,
     required this.startingTime,
     this.endingTime,
     this.status = 'pending',
@@ -41,11 +41,9 @@ class AppointmentEntitiy {
   });
 
   /// Convert `AppointmentEntitiy` to `AppointmentModel` for database storage
-  AppointmentModel toModel() {
-    return AppointmentModel(
-      mongoId, // Convert int? to String
+  AppointmentRequestBody toModel() {
+    return AppointmentRequestBody(
       title: title,
-      userId: userId,
       startingDate:
           startingDate
               .toIso8601String()
@@ -55,17 +53,19 @@ class AppointmentEntitiy {
           endingDate
               ?.toIso8601String()
               .split('T')
-              .first, // Convert DateTime to String
+              .first ?? null, // Convert DateTime to String
       startingTime:
           '${startingTime.hour}:${startingTime.minute}', // Convert TimeOfDay to String
       endingTime:
           endingTime != null
               ? '${endingTime!.hour}:${endingTime!.minute}' // Convert TimeOfDay to String
               : null,
-      status: status,
-      attendance: attendance,
-      acceptedBy: acceptedBy?.map((e) => e.toModel()).toList() ?? [],
-      groupId: groupId, rating: rating!.map((e)=>e.toModel()).toList(),
+      attendance: attendance ?? [],
+      groupId: groupId,
+       rating: rating!.expand((e) => e.ratedUsers)
+          .expand((e) => e.reviews)
+          .map((e) => ReviewingRequest(title: e.title, points: e.points))
+          .toList(),
       location: location,
       description: description,
       
@@ -78,14 +78,14 @@ class AppointmentEntitiy {
     int? appointmentId,
     String? title,
     String? userId,
-    String? groupId,
+    List<String>? groupId,
     DateTime? startingDate,
     DateTime? endingDate,
     TimeOfDay? startingTime,
     TimeOfDay? endingTime,
     String? status,
     List<String>? attendance,
-    List<UserEntities>? acceptedBy,
+    List<AcceptedByEntity>? acceptedBy,
     List<ReviewEntity>? rating ,
     String? location,
     String? description,
@@ -101,7 +101,7 @@ class AppointmentEntitiy {
       endingTime: endingTime ?? this.endingTime,
       status: status ?? this.status,
       attendance: attendance ?? this.attendance,
-      acceptedBy: acceptedBy ?? (this.acceptedBy != null ? List.from(this.acceptedBy!) : null),
+      acceptedBy: acceptedBy ,
       rating: rating ?? this.rating ,
       location: location ?? this.location,
       description: description ?? this.description,
