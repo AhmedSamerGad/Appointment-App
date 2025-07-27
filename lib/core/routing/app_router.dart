@@ -7,7 +7,6 @@ import 'package:appointments/features/authentication/signup/ui/sign_up.dart';
 import 'package:appointments/features/calendar/data/repo/calendar_repo.dart';
 import 'package:appointments/features/calendar/data/repo/remote_repo.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
-import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:appointments/features/calendar/logic/cubit/calendar_cubit/cubit/calendar_cubit.dart';
 import 'package:appointments/features/calendar/logic/cubit/local_calendar_cubit/cubit/local_calendar_cubit.dart';
 import 'package:appointments/features/calendar/logic/cubit/remot_calendar_cubit/cubit/remot_calendar_cubit.dart';
@@ -19,6 +18,8 @@ import 'package:appointments/features/calendar/ui/remote_appointment/add_appoint
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/attendance/attendance.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rateing/rate_user.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rateing/rating_logic/cubit/rate_users_cubit.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/status_views/complete_status_view.dart';
+import 'package:appointments/features/calendar/ui/remote_appointment/widgets/status_views/expired_status.dart';
 import 'package:appointments/features/groups/data/repo/group_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -67,7 +68,8 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) {
             return BlocProvider(
-              create: (context) => LocalCalendarCubit(localGetIt<CalendarRepo>()),
+              create:
+                  (context) => LocalCalendarCubit(localGetIt<CalendarRepo>()),
               child: const LocalAddAppointment(),
             );
           },
@@ -92,7 +94,7 @@ class AppRouters {
       case StringRoutes.addRemoteAppointment:
         return MaterialPageRoute(
           builder: (_) {
-            final  args = setting.arguments as AppointmentEntitiy?;
+            final args = setting.arguments as AppointmentEntitiy?;
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -104,7 +106,7 @@ class AppRouters {
                 ),
                 BlocProvider(create: (context) => AddAppointmentLogicCubit()),
               ],
-              child:  AddOrUpdateRemoteAppointment(appointment: args ,),
+              child: AddOrUpdateRemoteAppointment(appointment: args),
             );
           },
         );
@@ -113,7 +115,6 @@ class AppRouters {
         return MaterialPageRoute(
           builder: (_) {
             final appointment = setting.arguments as AppointmentEntitiy;
-            final reviewList = setting.arguments as RatedUserEntity ;
             return MultiBlocProvider(
               providers: [
                 BlocProvider(
@@ -123,22 +124,59 @@ class AppRouters {
                         getIt<GroupRepo>(),
                       ),
                 ),
-                BlocProvider(create: (context) => AddAppointmentLogicCubit()),
+                BlocProvider<RateUsersCubit>(
+                  create: (context) => RateUsersCubit(),
+                ),
               ],
-              child:  Attendance(appointment: appointment,reviewList: reviewList,),
+              child: Attendance(appointment: appointment),
             );
           },
         );
       case StringRoutes.rateUser:
         return MaterialPageRoute(
           builder: (_) {
-            final args = setting.arguments as List;
-            return BlocProvider(
-              create: (context) => RateUsersCubit(),
-              child:  RateUser(index: args[0],appointment: args[1],),
+            final args = setting.arguments as Map<String, dynamic>;
+            return BlocProvider<RateUsersCubit>.value(
+              value: args['cubit'] as RateUsersCubit,
+              child: RateUser(
+                index: args['index'],
+                appointment: args['appointment'],
+              ),
             );
           },
         );
+      case StringRoutes.completeStatusView:
+        return MaterialPageRoute(
+          builder: (_) {
+            final appointment = setting.arguments as AppointmentEntitiy;
+            return BlocProvider(
+              create:
+                  (context) => RemotCalendarCubit(
+                    getIt<RemoteRepo>(),
+                    getIt<GroupRepo>(),
+                  ),
+              child: CompleteStatusView(appointment: appointment),
+            );
+          },
+        );
+      case StringRoutes.expiredStatus:
+        return MaterialPageRoute(
+          builder: (_) {
+            final args = setting.arguments as AppointmentEntitiy ;
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(create: (context) => AddAppointmentLogicCubit()),
+                BlocProvider(create:(context) => RemotCalendarCubit(
+                    getIt<RemoteRepo>(),
+                    getIt<GroupRepo>(),
+                  ),),
+              ],
+              child:  ExpiredStatus(appointment: args,),
+            );
+          },
+        );
+
+     
     }
 
     return null;

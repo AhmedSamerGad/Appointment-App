@@ -7,4 +7,7 @@ class StringRoutes {
   static const String addRemoteAppointment = '/addremote';
   static const String rateUser = '/rateUser';
   static const String attendance = '/attendance';
+  static const String completeStatusView = '/completeStatusView';
+  static const String completeDetails = '/completeDetails';
+  static const String expiredStatus = '/expiredStatus';
 }

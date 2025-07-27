@@ -52,10 +52,14 @@ class RemoteListOfAppointment extends StatelessWidget {
         );
         break;
       case 'expired':
-        // Navigate to expired appointment details
+       Navigator.pushNamed(context, StringRoutes.expiredStatus , arguments: appointments[index]);
         break;
       case 'completed':
-        // Navigate to completed appointment details
+        Navigator.pushNamed(
+          context,
+          StringRoutes.completeStatusView,
+          arguments: appointments[index],
+        );
         break;
       default:
       // Handle unknown status

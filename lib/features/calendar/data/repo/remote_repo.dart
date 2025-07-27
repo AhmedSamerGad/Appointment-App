@@ -4,6 +4,7 @@ import 'package:appointments/core/network/api_result.dart';
 import 'package:appointments/features/calendar/data/api/api_calendar_services.dart';
 import 'package:appointments/features/calendar/data/models/remote/appointments/response/appointment_response.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
+import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:flutter/widgets.dart';
 
 class RemoteRepo {
@@ -16,15 +17,21 @@ class RemoteRepo {
   ) async {
     try {
       final readed = await _apiCalendarServices.getAppointmentsForUser(id);
-     final  data =  readed ['data'] as List<dynamic>;
-     final List<AppointmentResponseModel> appointments = data
-          .map((e) => AppointmentResponseModel.fromJson(e as Map<String, dynamic>))
-          .toList();
+      final data = readed['data'] as List<dynamic>;
+      final List<AppointmentResponseModel> appointments =
+          data
+              .map(
+                (e) => AppointmentResponseModel.fromJson(
+                  e as Map<String, dynamic>,
+                ),
+              )
+              .toList();
       if (appointments.isEmpty) {
         return const ApiResult.failure('No appointments found');
       }
 
-       final List<AppointmentEntitiy> entities = appointments.map((e) => e.toEntity()).toList();
+      final List<AppointmentEntitiy> entities =
+          appointments.map((e) => e.toEntity()).toList();
 
       return ApiResult.success(entities);
     } catch (e, stackTrace) {
@@ -75,6 +82,20 @@ class RemoteRepo {
     } catch (e) {
       debugPrint('error from remote repo while deleteing ${e.toString()}');
       return ApiResult.failure(e.toString());
+    }
+  }
+
+  Future<ApiResult<void>> startAppointmentRating(String appointmentId, ReviewEntity review) async {
+    try {
+      final model = review.toModelRequest();
+      await _apiCalendarServices.startRating(appointmentId, model);
+
+      return const ApiResult.success(null);
+    } catch (error) {
+      debugPrint(
+        'error from remote repo while startRating  ${error.toString()}',
+      );
+      return ApiResult.failure(error.toString());
     }
   }
 }

@@ -18,6 +18,8 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RateUsersState {
   List<ReviewingEvtity> get ratings => throw _privateConstructorUsedError;
+  Map<String, List<RatedUserEntity>> get users =>
+      throw _privateConstructorUsedError;
 
   /// Create a copy of RateUsersState
   /// with the given fields replaced by the non-null parameter values.
@@ -33,7 +35,10 @@ abstract class $RateUsersStateCopyWith<$Res> {
     $Res Function(RateUsersState) then,
   ) = _$RateUsersStateCopyWithImpl<$Res, RateUsersState>;
   @useResult
-  $Res call({List<ReviewingEvtity> ratings});
+  $Res call({
+    List<ReviewingEvtity> ratings,
+    Map<String, List<RatedUserEntity>> users,
+  });
 }
 
 /// @nodoc
@@ -50,7 +55,7 @@ class _$RateUsersStateCopyWithImpl<$Res, $Val extends RateUsersState>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? ratings = null}) {
+  $Res call({Object? ratings = null, Object? users = null}) {
     return _then(
       _value.copyWith(
             ratings:
@@ -58,6 +63,11 @@ class _$RateUsersStateCopyWithImpl<$Res, $Val extends RateUsersState>
                     ? _value.ratings
                     : ratings // ignore: cast_nullable_to_non_nullable
                         as List<ReviewingEvtity>,
+            users:
+                null == users
+                    ? _value.users
+                    : users // ignore: cast_nullable_to_non_nullable
+                        as Map<String, List<RatedUserEntity>>,
           )
           as $Val,
     );
@@ -73,7 +83,10 @@ abstract class _$$RateUsersStateImplCopyWith<$Res>
   ) = __$$RateUsersStateImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({List<ReviewingEvtity> ratings});
+  $Res call({
+    List<ReviewingEvtity> ratings,
+    Map<String, List<RatedUserEntity>> users,
+  });
 }
 
 /// @nodoc
@@ -89,7 +102,7 @@ class __$$RateUsersStateImplCopyWithImpl<$Res>
   /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
-  $Res call({Object? ratings = null}) {
+  $Res call({Object? ratings = null, Object? users = null}) {
     return _then(
       _$RateUsersStateImpl(
         ratings:
@@ -97,6 +110,11 @@ class __$$RateUsersStateImplCopyWithImpl<$Res>
                 ? _value._ratings
                 : ratings // ignore: cast_nullable_to_non_nullable
                     as List<ReviewingEvtity>,
+        users:
+            null == users
+                ? _value._users
+                : users // ignore: cast_nullable_to_non_nullable
+                    as Map<String, List<RatedUserEntity>>,
       ),
     );
   }
@@ -105,8 +123,11 @@ class __$$RateUsersStateImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$RateUsersStateImpl implements _RateUsersState {
-  const _$RateUsersStateImpl({required final List<ReviewingEvtity> ratings})
-    : _ratings = ratings;
+  const _$RateUsersStateImpl({
+    required final List<ReviewingEvtity> ratings,
+    required final Map<String, List<RatedUserEntity>> users,
+  }) : _ratings = ratings,
+       _users = users;
 
   final List<ReviewingEvtity> _ratings;
   @override
@@ -116,9 +137,17 @@ class _$RateUsersStateImpl implements _RateUsersState {
     return EqualUnmodifiableListView(_ratings);
   }
 
+  final Map<String, List<RatedUserEntity>> _users;
+  @override
+  Map<String, List<RatedUserEntity>> get users {
+    if (_users is EqualUnmodifiableMapView) return _users;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableMapView(_users);
+  }
+
   @override
   String toString() {
-    return 'RateUsersState(ratings: $ratings)';
+    return 'RateUsersState(ratings: $ratings, users: $users)';
   }
 
   @override
@@ -126,12 +155,16 @@ class _$RateUsersStateImpl implements _RateUsersState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$RateUsersStateImpl &&
-            const DeepCollectionEquality().equals(other._ratings, _ratings));
+            const DeepCollectionEquality().equals(other._ratings, _ratings) &&
+            const DeepCollectionEquality().equals(other._users, _users));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(_ratings));
+  int get hashCode => Object.hash(
+    runtimeType,
+    const DeepCollectionEquality().hash(_ratings),
+    const DeepCollectionEquality().hash(_users),
+  );
 
   /// Create a copy of RateUsersState
   /// with the given fields replaced by the non-null parameter values.
@@ -148,10 +181,13 @@ class _$RateUsersStateImpl implements _RateUsersState {
 abstract class _RateUsersState implements RateUsersState {
   const factory _RateUsersState({
     required final List<ReviewingEvtity> ratings,
+    required final Map<String, List<RatedUserEntity>> users,
   }) = _$RateUsersStateImpl;
 
   @override
   List<ReviewingEvtity> get ratings;
+  @override
+  Map<String, List<RatedUserEntity>> get users;
 
   /// Create a copy of RateUsersState
   /// with the given fields replaced by the non-null parameter values.

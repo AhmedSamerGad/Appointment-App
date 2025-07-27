@@ -1,4 +1,5 @@
-import 'package:appointments/features/calendar/data/models/remote/rating/rating_response_model.dart';
+import 'package:appointments/features/calendar/data/models/remote/rating/rating_request/rating_request.dart';
+import 'package:appointments/features/calendar/data/models/remote/rating/rating_response/rating_response_model.dart';
 
 class ReviewEntity {
   final String? id;
@@ -23,6 +24,23 @@ class ReviewEntity {
       users: ratedUsers.map((e) => e.toModel()).toList(),
     );
   }
+RataingResquest toModelRequest() {
+  return RataingResquest(
+    rating: [
+      Rating(
+        users: ratedUsers.map((ru) => User(
+          ratedUser: ru.ratedUser ?? '',
+          comment: ru.comment ?? '',
+          cumulativeRatingPoints: ru.cumulativeRatingPoints,
+          reviews: ru.reviews.map((r) => Review(
+            title: r.title,
+            points: r.points,
+          )).toList(),
+        )).toList(),
+      ),
+    ],
+  );
+}
 }
 
 class RatedUserEntity {

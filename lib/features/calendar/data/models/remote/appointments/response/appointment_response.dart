@@ -1,4 +1,4 @@
-import 'package:appointments/features/calendar/data/models/remote/rating/rating_response_model.dart';
+import 'package:appointments/features/calendar/data/models/remote/rating/rating_response/rating_response_model.dart';
 import 'package:appointments/features/calendar/domin/accepted_by_entity.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:flutter/material.dart';

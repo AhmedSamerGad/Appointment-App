@@ -3,6 +3,7 @@ import 'package:appointments/core/network/api_constant.dart';
 import 'package:appointments/features/calendar/data/api/api_calendar_constant.dart';
 import 'package:appointments/features/calendar/data/models/remote/appointments/request/appointment_request_body.dart';
 import 'package:appointments/features/calendar/data/models/remote/appointments/response/appointment_response.dart';
+import 'package:appointments/features/calendar/data/models/remote/rating/rating_request/rating_request.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -31,4 +32,7 @@ abstract class ApiCalendarServices {
   Future<void> deleteAppointment(
     @Path('id') String appointmentId,
   );
+
+  @PATCH(ApiCalendarConstant.startRating)
+  Future<void> startRating(@Path('id') String appointmentId, @Body() RataingResquest rataingResquest);
 }

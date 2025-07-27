@@ -21,20 +21,29 @@ class RateUsersCubit extends Cubit<RateUsersState> {
               ),
             )
             .toList();
-    emit(RateUsersState(ratings: List.from(ratings)));
+    emit(RateUsersState(ratings: List.from(ratings), users: {}));
   }
 
-  void updateSlider(String label, double value) {
-    final index = ratings.indexWhere((r) => r.title == label);
-    if (index != -1) {
-      ratings[index] = ratings[index].copyWith(currentValue: value.toInt());
-      emit(RateUsersState(ratings: List.from(ratings))); // emit full new state
-    }
+   void updateSlider(String label, double value) {
+    final newRatings = ratings.map((r) => 
+      r.title == label ? r.copyWith(currentValue: value.toInt()) : r
+    ).toList();
+    
+    ratings = newRatings;
+    emit(state.copyWith(ratings: List.from(newRatings))); // New list instance
   }
-
+Map<String,List<RatedUserEntity>> userRatings  = {};
+    void setRateUser(String userId, RatedUserEntity rate) {
+    final newUserRatings = {...userRatings};
+    newUserRatings[userId] = [...newUserRatings[userId] ?? [], rate];
+    
+    userRatings = newUserRatings;
+    emit(state.copyWith(users: Map.from(newUserRatings))); // New map instance
+  }
   @override
   Future<void> close() {
     commentControllar.dispose();
     return super.close();
   }
+
 }

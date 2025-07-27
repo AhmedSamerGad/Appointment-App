@@ -1,6 +1,4 @@
 // ignore_for_file: unnecessary_null_comparison
-
-import 'package:appointments/core/routing/routes.dart';
 import 'package:appointments/core/thems/styles.dart';
 import 'package:appointments/core/widgets/app_textform.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
@@ -13,15 +11,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class RateUser extends StatefulWidget {
-  const RateUser({super.key, required this.index, this.appointment});
-  final int? index;
-  final AppointmentEntitiy? appointment;
+  const RateUser({super.key, required this.index, required this.appointment});
+  final int index;
+  final AppointmentEntitiy appointment;
   @override
   State<RateUser> createState() => _RateUserState();
 }
 
 class _RateUserState extends State<RateUser> {
-  double value = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,15 +38,36 @@ class _RateUserState extends State<RateUser> {
                 builder: (BuildContext context, state) {
                   return TextButton(
                     onPressed: () {
-                      final RatedUserEntity user = RatedUserEntity(
+                      print('index is ${widget.index}');
+                      print(state.ratings.map((e) => e.currentValue));
+                      final totalPoints = state.ratings.fold<int>(
+                        0,
+                        (sum, r) => sum + (r.currentValue ?? 0),
+                      );
+                      final cubit = context.read<RateUsersCubit>();
+                      print('total point $totalPoints');
+                      final Rate = RatedUserEntity(
                         reviews: state.ratings,
-                        comment: context.read<RateUsersCubit>().commentControllar.text
+                        cumulativeRatingPoints: totalPoints,
+                        ratedUser:
+                            widget
+                                .appointment
+                                .rating![0]
+                                .ratedUsers[widget.index]
+                                .ratedUser,
+                                comment: cubit.commentControllar.text
                       );
-                      Navigator.pushReplacementNamed(
-                        context,
-                        StringRoutes.attendance,
-                        arguments: user,
+                      
+                      cubit.setRateUser(
+                        widget
+                            .appointment
+                            .rating![0]
+                            .ratedUsers[widget.index]
+                            .ratedUser!,
+                            Rate
                       );
+
+                      Navigator.pop(context );
                     },
                     child: Text('Save', style: TextStyles.font14DarkBlueMedium),
                   );
@@ -76,22 +94,19 @@ class _RateUserState extends State<RateUser> {
                   CircleAvatar(
                     radius: 48,
                     backgroundImage:
-                        widget
-                                    .appointment!
-                                    .acceptedBy![widget.index!]
-                                    .imageUrl !=
+                        widget.appointment.acceptedBy![widget.index].imageUrl !=
                                 null
                             ? NetworkImage(
                               widget
-                                  .appointment!
-                                  .acceptedBy![widget.index!]
+                                  .appointment
+                                  .acceptedBy![widget.index]
                                   .imageUrl,
                             )
                             : const AssetImage('assets/images/person.png'),
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    widget.appointment!.acceptedBy![widget.index!].name,
+                    widget.appointment.acceptedBy![widget.index].name,
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                       fontSize: 22,
@@ -130,8 +145,8 @@ class _RateUserState extends State<RateUser> {
                       final appointmentReviews =
                           widget
                               .appointment
-                              ?.rating?[0]
-                              .ratedUsers[widget.index!]
+                              .rating?[0]
+                              .ratedUsers[widget.index]
                               .reviews ??
                           [];
 

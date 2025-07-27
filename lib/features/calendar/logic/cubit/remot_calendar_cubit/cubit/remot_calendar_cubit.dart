@@ -1,6 +1,7 @@
 import 'package:appointments/core/utils/shared_prefrances.dart';
 import 'package:appointments/features/calendar/data/repo/remote_repo.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
+import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:appointments/features/calendar/logic/cubit/remot_calendar_cubit/cubit/remot_calendar_state.dart';
 import 'package:appointments/features/groups/data/model/group_model.dart';
 import 'package:appointments/features/groups/data/repo/group_repo.dart';
@@ -161,6 +162,21 @@ Future<List<GroupModel>> getGroupForAdmin() async {
       );
     } catch (e) {
       emit(RemotCalendarState.remoteError(e.toString()));
+    }
+  }
+  void startRate(ReviewEntity rate , String appointmentId)async{
+    emit(const RemotCalendarState.remoteLoading());
+    try{
+      final start = await _remoteRepo.startAppointmentRating(appointmentId, rate);
+      start.when(success: (_){
+        emit(const RemotCalendarState.remoteSuccess(null));
+      }, failure: ((error){
+        print(error.toString());
+        emit(RemotCalendarState.remoteError(error));
+      }));
+    }catch(error){
+       print(error.toString());
+        emit(RemotCalendarState.remoteError(error.toString()));
     }
   }
 }
