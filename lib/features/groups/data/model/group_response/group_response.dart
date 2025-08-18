@@ -1,4 +1,4 @@
-import 'package:appointments/features/groups/data/model/group_model.dart';
+import 'package:appointments/features/groups/data/model/group_response/model/group_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'group_response.g.dart';
 @JsonSerializable()

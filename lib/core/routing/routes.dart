@@ -10,4 +10,7 @@ class StringRoutes {
   static const String completeStatusView = '/completeStatusView';
   static const String completeDetails = '/completeDetails';
   static const String expiredStatus = '/expiredStatus';
+  static const String group = '/group';
+  static const String home = '/home';
+ 
 }

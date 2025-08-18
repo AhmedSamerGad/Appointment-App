@@ -3,7 +3,7 @@ import 'package:appointments/features/calendar/ui/remote_appointment/add_appoint
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:appointments/features/authentication/login/data/models/user_model.dart';
-import 'package:appointments/features/groups/data/model/group_model.dart';
+import 'package:appointments/features/groups/data/model/group_response/model/group_model.dart';
 
 class GroupCardsList extends StatefulWidget {
   final List<GroupModel> groups;

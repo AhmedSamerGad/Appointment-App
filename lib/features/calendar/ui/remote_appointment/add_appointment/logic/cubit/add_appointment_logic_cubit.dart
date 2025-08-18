@@ -2,7 +2,7 @@ import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/add_appointment/logic/cubit/add_appointment_logic_state.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rateing/slider_widget.dart';
-import 'package:appointments/features/groups/data/model/group_model.dart';
+import 'package:appointments/features/groups/data/model/group_response/model/group_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

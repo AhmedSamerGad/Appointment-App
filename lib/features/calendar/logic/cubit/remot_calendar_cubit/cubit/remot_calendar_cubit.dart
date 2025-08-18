@@ -3,7 +3,7 @@ import 'package:appointments/features/calendar/data/repo/remote_repo.dart';
 import 'package:appointments/features/calendar/domin/appointment_entitiy.dart';
 import 'package:appointments/features/calendar/domin/review_entity.dart';
 import 'package:appointments/features/calendar/logic/cubit/remot_calendar_cubit/cubit/remot_calendar_state.dart';
-import 'package:appointments/features/groups/data/model/group_model.dart';
+import 'package:appointments/features/groups/data/model/group_response/model/group_model.dart';
 import 'package:appointments/features/groups/data/repo/group_repo.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -177,6 +177,33 @@ Future<List<GroupModel>> getGroupForAdmin() async {
     }catch(error){
        print(error.toString());
         emit(RemotCalendarState.remoteError(error.toString()));
+    }
+  }
+
+  void deleteAppointment(AppointmentEntitiy apt) async {
+    emit(const RemotCalendarState.remoteLoading());
+    try {
+      final deletedOne = await _remoteRepo.deleteAppointment(apt.appointmentId.toString());
+      deletedOne.when(
+        success: (_) {
+          // Remove the appointment from the map
+          if (appointments.containsKey(apt.startingDate)) {
+            appointments[apt.startingDate]!.removeWhere((a) => a.appointmentId == apt.appointmentId);
+            if (appointments[apt.startingDate]!.isEmpty) {
+              appointments.remove(apt.startingDate);
+            }
+          }
+          emit(const RemotCalendarState.remoteSuccess(null));
+        },
+        failure: (error) {
+          debugPrint(
+            'error from remote calendar cubit delete date ${error.toString()}',
+          );
+          emit(RemotCalendarState.remoteError(error));
+        },
+      );
+    } catch (e) {
+      emit(RemotCalendarState.remoteError(e.toString()));
     }
   }
 }

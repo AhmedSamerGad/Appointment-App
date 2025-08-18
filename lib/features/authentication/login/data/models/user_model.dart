@@ -36,16 +36,16 @@ class UserModel {
   // Model → Entity
   UserEntities toEntity() {
     return UserEntities(
-      id: id!,
-      email: email!,
-      password: password!,
-      name: name!, 
-      gender: gender!,
-      appointments: appointments!,
-      groups: groups!,
-      role: role!,
-      profilePic: profilePic!,
-      token: token
+      id: id ?? '',
+      email: email ?? '',
+      password: password ?? '',
+      name: name ?? '',
+      gender: gender ?? '',
+      appointments: appointments ?? [],
+      groups: groups ?? [],
+      role: role ?? '',
+      profilePic: profilePic ?? '',
+      token: token ?? '',
     );
   }
 

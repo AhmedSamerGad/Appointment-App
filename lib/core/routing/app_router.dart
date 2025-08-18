@@ -21,6 +21,9 @@ import 'package:appointments/features/calendar/ui/remote_appointment/widgets/rat
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/status_views/complete_status_view.dart';
 import 'package:appointments/features/calendar/ui/remote_appointment/widgets/status_views/expired_status.dart';
 import 'package:appointments/features/groups/data/repo/group_repo.dart';
+import 'package:appointments/features/groups/logic/cubit/group_api_cubit.dart';
+import 'package:appointments/features/groups/ui/out_side/group_view.dart';
+import 'package:appointments/features/home/home_scren.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -162,21 +165,32 @@ class AppRouters {
       case StringRoutes.expiredStatus:
         return MaterialPageRoute(
           builder: (_) {
-            final args = setting.arguments as AppointmentEntitiy ;
+            final args = setting.arguments as AppointmentEntitiy;
             return MultiBlocProvider(
               providers: [
                 BlocProvider(create: (context) => AddAppointmentLogicCubit()),
-                BlocProvider(create:(context) => RemotCalendarCubit(
-                    getIt<RemoteRepo>(),
-                    getIt<GroupRepo>(),
-                  ),),
+                BlocProvider(
+                  create:
+                      (context) => RemotCalendarCubit(
+                        getIt<RemoteRepo>(),
+                        getIt<GroupRepo>(),
+                      ),
+                ),
               ],
-              child:  ExpiredStatus(appointment: args,),
+              child: ExpiredStatus(appointment: args),
             );
           },
         );
-
-     
+      case StringRoutes.group:
+        return MaterialPageRoute(
+          builder:
+              (_) => BlocProvider(
+                create: (context) => GroupApiCubit(getIt<GroupRepo>()),
+                child: const GroupView(),
+              ),
+        );
+      case StringRoutes.home:
+        return MaterialPageRoute(builder: (_) => const DashboardScreen());
     }
 
     return null;

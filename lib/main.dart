@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
 
           initialRoute:
-              isLoggedInUser ? StringRoutes.calender : StringRoutes.login,
+            isLoggedInUser ? StringRoutes.group : StringRoutes.login,
           onGenerateRoute: appRouters.generateRoute,
         ),
       ),

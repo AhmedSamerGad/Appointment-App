@@ -95,6 +95,7 @@ class _SignUpFormState extends State<SignUpForm> {
                 ),
                 AppTextFormField(
                   controller: passwordController,
+                  maxLines: 1,
                   hintText: 'password',
                   validator: (value) {
                     if (value!.isEmpty || value ==null) {

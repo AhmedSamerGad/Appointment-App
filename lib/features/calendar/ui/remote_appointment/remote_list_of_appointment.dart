@@ -99,6 +99,7 @@ class RemoteListOfAppointment extends StatelessWidget {
                 onTap: () {
                   goToRoute(index, context);
                 },
+                
                 trailing: Column(
                   spacing: 10.h,
                   children: [

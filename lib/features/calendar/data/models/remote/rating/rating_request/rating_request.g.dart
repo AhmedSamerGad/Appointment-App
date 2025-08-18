@@ -35,11 +35,13 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       (json['reviews'] as List<dynamic>?)
           ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
           .toList(),
+  cumulativeRatingPoints: (json['cumulativeRatingPoints'] as num?)?.toInt(),
 );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
   'ratedUser': instance.ratedUser,
   'comment': instance.comment,
+  'cumulativeRatingPoints': instance.cumulativeRatingPoints,
   'reviews': instance.reviews,
 };
 

@@ -1,7 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: unused_element_parameter
-
 part of 'api_calendar_services.dart';
 
 // **************************************************************************
@@ -12,7 +10,7 @@ part of 'api_calendar_services.dart';
 
 class _ApiCalendarServices implements ApiCalendarServices {
   _ApiCalendarServices(this._dio, {this.baseUrl, this.errorLogger}) {
-    baseUrl ??= 'http://10.0.2.2:3000/api/v1';
+    baseUrl ??= 'http://192.168.1.8:3000/api/v1';
   }
 
   final Dio _dio;

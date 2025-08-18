@@ -14,6 +14,7 @@ class DioHelper {
           baseUrl: ApiConstant.baseUrl,
           receiveTimeout: const Duration(seconds: 30),
           connectTimeout: const Duration(seconds: 30),
+          sendTimeout: const Duration(seconds: 30),
           validateStatus: (status) {
             return status! < 500;
           },

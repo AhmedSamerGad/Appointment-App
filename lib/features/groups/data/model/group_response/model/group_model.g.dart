@@ -16,7 +16,10 @@ GroupModel _$GroupModelFromJson(Map<String, dynamic> json) => GroupModel(
       [],
   groupPic: json['groupPic'] as String?,
   description: json['description'] as String?,
-  admin: json['admin'] as String?,
+  admin:
+      json['admin'] == null
+          ? null
+          : UserModel.fromJson(json['admin'] as Map<String, dynamic>),
   groupAppointments:
       (json['Appointments'] as List<dynamic>?)
           ?.map((e) => e as String)

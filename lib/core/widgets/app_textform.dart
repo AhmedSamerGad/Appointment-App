@@ -25,6 +25,7 @@ class AppTextFormField extends StatelessWidget {
   final Widget? label;
   final int ? maxLines;
   final int? minLines;
+  final Widget? prefixIcon;
   const AppTextFormField({
     super.key,
     this.contentPadding,
@@ -42,7 +43,7 @@ class AppTextFormField extends StatelessWidget {
     this.onTap,
     required this.validator,
     this.label,
-    this.expands, this.maxLines, this.minLines
+    this.expands, this.maxLines, this.minLines , this.prefixIcon
   });
 
   @override
@@ -53,6 +54,7 @@ class AppTextFormField extends StatelessWidget {
       minLines: minLines ,
       controller: controller,
       keyboardType: type ?? TextInputType.text,
+      
       decoration: InputDecoration(
         label: label ,
         isDense: true,
@@ -88,6 +90,7 @@ class AppTextFormField extends StatelessWidget {
         hintStyle: hintStyle ?? TextStyles.font14LightGrayRegular,
         hintText: hintText,
         suffixIcon: suffixIcon,
+        prefixIcon: prefixIcon,
         fillColor: backgroundColor ?? ColorsManager.moreLightGray,
         filled: true,
         enabled: isEnabled ?? true

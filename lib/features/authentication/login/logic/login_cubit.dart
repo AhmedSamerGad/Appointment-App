@@ -73,4 +73,11 @@ class LoginCubit extends Cubit<LoginState> {
   // Verify the token was saved and set
   print('Token saved and set: ${token.substring(0, 10)}...');
 }
+
+@override
+  Future<void> close() {
+    emailController.dispose();
+    passwordController.dispose();
+    return super.close();
+  }
 }
