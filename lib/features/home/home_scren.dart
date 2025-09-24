@@ -1,110 +1,94 @@
-import 'package:appointments/features/groups/ui/out_side/group_view.dart';
-import 'package:appointments/features/home/page_four.dart';
+// ignore_for_file: library_private_types_in_public_api
+
+import 'package:appointments/features/home/widgets/animation_effect.dart';
+import 'package:appointments/features/home/widgets/drawer_items.dart';
+import 'package:appointments/features/home/main_screen.dart';
 import 'package:flutter/material.dart';
 
-
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class ThreeDDrawerDemo extends StatefulWidget {
+  const ThreeDDrawerDemo({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  _ThreeDDrawerDemoState createState() => _ThreeDDrawerDemoState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> with SingleTickerProviderStateMixin {
-  bool showMenu = false;
-  int selectedPageIndex = 0;
-
+class _ThreeDDrawerDemoState extends State<ThreeDDrawerDemo>
+    with SingleTickerProviderStateMixin {
   late AnimationController _controller;
-  late Animation<double> _animation;
-
-  final List<Widget> pages =  [
-    AppointmentScreen(),
-    ProfileScreen(),
-    const GroupView(),
-    SettingsScreen(),
-  ];
- 
-  final List<String> pageNames = [
-    "Appointments",
-    "Profile",
-    "Groups",
-    "Settings",
-  ];
 
   @override
   void initState() {
     super.initState();
     _controller = AnimationController(
-      duration: const Duration(milliseconds: 500),
       vsync: this,
+      duration: const Duration(milliseconds: 300),
     );
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic);
   }
 
-  void toggleMenu() {
-    setState(() => showMenu = !showMenu);
-    showMenu ? _controller.forward() : _controller.reverse();
-  }
-
-  void selectPage(int index) {
-    setState(() {
-      selectedPageIndex = index;
-      toggleMenu();
-    });
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final drawerWidth = screenWidth * 0.65;
+
     return Scaffold(
       body: Stack(
         children: [
-          // Main content
-          pages[selectedPageIndex],
-
-          // Overlay grid with animation
-          if (showMenu)
-            Positioned.fill(
-              child: FadeTransition(
-                opacity: _animation,
-                child: ScaleTransition(
-                  scale: _animation,
-                  child: Container(
-                    color: Colors.black.withOpacity(0.6),
-                    padding: const EdgeInsets.all(24),
-                    child: GridView.builder(
-                      itemCount: pages.length,
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                      ),
-                      itemBuilder: (context, index) {
-                        return GestureDetector(
-                          onTap: () => selectPage(index),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(16),
-                            ),
-                            child: Center(
-                              child: Text(
-                                pageNames[index],
-                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
+          // Drawer Background
+          Container(
+            width: drawerWidth,
+            color: const Color(0xFF4A90E2),
+            child: const SafeArea(
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 40),
+                    // Profile Section
+                    CircleAvatar(
+                      radius: 35,
+                      backgroundImage: NetworkImage('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face'),
                     ),
-                  ),
+                    SizedBox(height: 15),
+                    Text(
+                      'Chanandler Bong',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    SizedBox(height: 40),
+                    // Menu Items
+                    DrawerItems(icon: Icons.person_outline, title: 'Profile'),
+                    DrawerItems(icon: Icons.shopping_cart_outlined, title: 'My Cart'),
+                    DrawerItems(icon: Icons.favorite_border, title: 'Favourite'),
+                    DrawerItems(icon: Icons.receipt_long, title: 'Orders'),
+                    DrawerItems(icon: Icons.notifications_outlined, title: 'Notifications'),
+                    DrawerItems(icon: Icons.settings_outlined, title: 'Settings'),
+                    Spacer(),
+                    DrawerItems(icon: Icons.logout, title: 'Sign Out'),
+                    SizedBox(height: 20),
+                  ],
                 ),
               ),
             ),
+          ),
+          
+          // Main Content with 3D Transform
+          AnimationEffect(
+            controller: _controller,
+            drawerWidth: drawerWidth,
+            child: MainScreen(controller: _controller,),
+          ),
+
         ],
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: toggleMenu,
-        child: Icon(showMenu ? Icons.close : Icons.menu),
       ),
     );
   }

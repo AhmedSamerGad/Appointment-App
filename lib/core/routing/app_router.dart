@@ -190,7 +190,7 @@ class AppRouters {
               ),
         );
       case StringRoutes.home:
-        return MaterialPageRoute(builder: (_) => const DashboardScreen());
+        return MaterialPageRoute(builder: (_) =>  ThreeDDrawerDemo());
     }
 
     return null;
